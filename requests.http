@@ -1,0 +1,48 @@
+### Requests you can run from IntelliJ IDEA or VS Code (REST Client extension).
+### Start the app first, e.g. with the "local" profile (see README).
+
+@base = http://localhost:8080
+
+### List applications (newest first)
+GET {{base}}/api/applications
+
+### Filter by status and search company/role
+GET {{base}}/api/applications?status=APPLIED&q=java&sort=company,asc
+
+### Create
+POST {{base}}/api/applications
+Content-Type: application/json
+
+{
+  "company": "Example Corp",
+  "role": "Junior Java Developer",
+  "location": "Remote",
+  "jobUrl": "https://example.com/careers/123",
+  "source": "LinkedIn",
+  "status": "APPLIED",
+  "nextFollowUpOn": "2026-12-01"
+}
+
+### Get one
+GET {{base}}/api/applications/1
+
+### Move to the next status
+POST {{base}}/api/applications/1/status
+Content-Type: application/json
+
+{
+  "status": "OFFER",
+  "note": "Verbal offer after final round"
+}
+
+### Timeline of status changes
+GET {{base}}/api/applications/1/history
+
+### Follow-ups due today or earlier
+GET {{base}}/api/applications/follow-ups
+
+### Job search stats
+GET {{base}}/api/stats
+
+### Delete
+DELETE {{base}}/api/applications/4
